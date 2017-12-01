@@ -31,10 +31,7 @@ class Program
 		int sum = 0;
 		for (int i = 0; i < input.Length / 2; ++i)
 		{
-			if (input[i] == input[i+ input.Length / 2])
-			{
-				sum += (int)Char.GetNumericValue(input[i]) * 2;
-			}
+			sum += input[i] == input[i + input.Length / 2] ? (int)Char.GetNumericValue(input[i]) * 2 : 0;
 		}
 		return sum;
 	}
@@ -42,38 +39,17 @@ class Program
 	private int CalculateNextNumber(char[] input)
 	{
 		int sum = 0;
-		for (int i = 0; i < input.Length; ++i)
-		{
-			if (i == input.Length - 1)
-			{
-				sum += GetNumber(input[i], input[0]);
-			}
-			else
-			{
-				sum += GetNumber(input[i], input[i + 1]);
-			}
+		for (int i = 0; i < input.Length-1; ++i)
+		{		
+			sum += input[i] == input[i + 1] ? (int)Char.GetNumericValue(input[i]) : 0;
 		}
-		return sum;
-	}	
-
-	private static int GetNumber(char a, char b)
-	{
-		if (a == b)
-		{
-			return (int)Char.GetNumericValue(a);
-		}
-		return 0;
+		return sum += input[0] == input[input.Length-1] ? (int)Char.GetNumericValue(input[0]) : 0;
 	}
 
 	public static void Main(string[] args)
     {
 		var p = new Program();
         Console.WriteLine(p.CalculateCaptcha(Format.NextChar));
-		//Console.WriteLine(p.CalculateCaptcha(Format.HalfWay, "1212"));
-		//Console.WriteLine(p.CalculateCaptcha(Format.HalfWay, "1221"));
-		//Console.WriteLine(p.CalculateCaptcha(Format.HalfWay, "123425"));
-		//Console.WriteLine(p.CalculateCaptcha(Format.HalfWay, "123123"));
-		//Console.WriteLine(p.CalculateCaptcha(Format.HalfWay, "12131415"));
 		Console.WriteLine(p.CalculateCaptcha(Format.HalfWay));
 		Console.ReadLine();
     }   
